@@ -1,15 +1,28 @@
-pipeline {
-
-agent any
-
-stages {
-   stage ('build')
+pipeline
 {
-    steps {
-    echo "This is build stage"
-      }
+    agent {
+        label 'DevServer'
+    }
+tools {
+    maven 'myMaven'
 }
-stage ('Test')
+    stages {
+        stage('Build')
+            {
+                steps{
+                    echo " This is build stage"
+                    sh 'mvn clean package'
+                }
+            post {
+                success {
+                    archiveArtifacts artifacts: '**/*.war'
+            }
+            }
+            }
+ 
+    }
+}
+/* stage ('Test')
 {
   steps {
     echo "This is Test stage"
@@ -25,4 +38,4 @@ stage ('Deploy')
 }
 
 }
-}
+} */
