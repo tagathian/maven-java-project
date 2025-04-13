@@ -59,7 +59,7 @@ parallel {
 
 stage ('Deploy_Dev')
 	{
-	when {expression {params.select_environment=='Dev'}
+	when {expression {params.select_environment=='DevServer'}
 	beforeAgent=true}
 	agent { label 'DevServer'}
 	steps {
