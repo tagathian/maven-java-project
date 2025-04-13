@@ -52,11 +52,4 @@ stage('test B'){
 }
 
 
-/*
-stage ('Deploy')
-{
-  steps {
-    echo "This is Deploy stage"
-}
-
-} */
+ 
