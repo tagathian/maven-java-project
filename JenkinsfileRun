@@ -20,7 +20,7 @@ tools {
                 steps{
                     echo " This is build stage"
                     sh 'mvn clean package'
-                    echo "Hello $NAME ${params.LASTNAME}"
+                    echo "Hello $NAME ${params.LASTNAME} this First Pipeline program "
                 }
             post {
                 success {
