@@ -44,7 +44,7 @@ stage ('Test')
         }
     }
 }
-}
+
      post {
         success {
                     archiveArtifacts artifacts: '**/*.war'
@@ -52,7 +52,7 @@ stage ('Test')
         }
 
 }
-
+}
 
 /*
 stage ('Deploy')
