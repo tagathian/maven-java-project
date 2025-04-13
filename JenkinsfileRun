@@ -4,7 +4,7 @@ pipeline
         label 'DevServer'
     }
     parameters {
-        string defaultValue: 'Thangavelu', name: 'LASTNAME'
+  choice choices: ['Staging','Prod'], name: 'Select_environment'
     }
 
 environment { 
@@ -20,8 +20,8 @@ stages {
                 {
                 steps{
                     echo " This is build stage"
-                    sh 'mvn clean package'
-                    echo "Hello $NAME ${params.LASTNAME} this First Pipeline program "
+                    sh 'mvn clean -DskipTests=true package'
+                  --  echo "Hello $NAME ${params.LASTNAME} this First Pipeline program "
                     }
            
                 }
@@ -30,14 +30,18 @@ stage ('test')
 	{
 parallel {
 	stage('test A'){
+			agent{ label 'DevServer'}
 			steps{
 			echo " This is test A"
+			sh "mvn test"
 			}
         }
 			
 	stage('test B'){
 			steps{
+			agent { label 'DevServer' }
 			echo " This is test B"
+			sh "mvn test"
 			}
         }
 			
@@ -45,13 +49,36 @@ parallel {
 		
  post {
         success {
-                archiveArtifacts artifacts: '**/*.war'
+           --     archiveArtifacts artifacts: '**/*.war'
+		dir("webapp/target/")
+		{
+		stash name: "maven-build", includes: "*.war"
+		}
                 }
         }  
-		
-    }  
+}  
+
+stage ('Deploy_Dev')
+	{
+	when {expression {params.select_environment=='Dev'}
+	beforeAgent=true}
+	agent { label 'DevServer'}
+	steps {
+		dir("/var/wwww/html")
+			{
+			unstash "maven-build"
+			}
+
+		sh """
+		cd /var/www/html
+		jar -X webapp.war
+		"""
+		}
 	
-		}  
+	}
+		
+  }  
+
 }
 
 
