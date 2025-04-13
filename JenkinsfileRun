@@ -20,7 +20,7 @@ stages {
                 {
                 steps{
                     echo " This is build stage"
-                    sh 'mvn clean -DskipTests=true package'
+                    sh 'mvn clean package -DskipTests=true'
                   }
            
                 }
