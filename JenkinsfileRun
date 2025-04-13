@@ -21,8 +21,7 @@ stages {
                 steps{
                     echo " This is build stage"
                     sh 'mvn clean -DskipTests=true package'
-                  /*  echo "Hello $NAME ${params.LASTNAME} this First Pipeline program "
-                   */ }
+                  }
            
                 }
             
