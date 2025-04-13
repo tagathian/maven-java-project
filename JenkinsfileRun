@@ -15,41 +15,37 @@ tools {
     maven 'myMaven'
     }
 
-    stages {
+stages {
         stage('Build')
-            {
+                {
                 steps{
                     echo " This is build stage"
                     sh 'mvn clean package'
                     echo "Hello $NAME ${params.LASTNAME} this First Pipeline program "
-                }
+                    }
            
+                }
             }
- 
-    }
 
-stage ('Test'){
+stage ('test')
+{
 parallel {
 stage('test A'){
-            steps {
-            echo " This is test A"
-                }
-        }
+        echo " This is test A"
+            }
 stage('test B'){
-        steps {
-        echo " This is test B" 
-        }
-    }
-}
-}
-
-     post {
-        success {
-                    archiveArtifacts artifacts: '**/*.war'
+        echo " This is test B"
             }
         }
+ post {
+        success {
+                archiveArtifacts artifacts: '**/*.war'
+                }
+        }
+    }
 
 }
+
 
 
  
