@@ -7,13 +7,13 @@ pipeline
         string defaultValue: 'Agathian', NAME: 'LASTNAME'
     }
 
-environment{
+environment { 
     NAME = "Agathian"
 }
 
 tools {
     maven 'myMaven'
-}
+    }
     stages {
         stage('Build')
             {
