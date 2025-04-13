@@ -7,7 +7,7 @@ pipeline
         string defaultValue: 'Agathian', NAME: 'LASTNAME'
     }
 environment{
-    name = 'Agathian'
+    NAME = 'Agathian'
 }
 
 tools {
