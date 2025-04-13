@@ -14,6 +14,7 @@ environment {
 tools {
     maven 'myMaven'
     }
+
     stages {
         stage('Build')
             {
@@ -27,7 +28,7 @@ tools {
  
     }
 
-stage ('Test')
+stage ('Test'){
 parallel {
 stage('test A'){
             steps {
@@ -39,6 +40,7 @@ stage('test B'){
         echo " This is test B" 
         }
     }
+}
 }
 
      post {
@@ -55,7 +57,7 @@ stage ('Deploy')
 {
   steps {
     echo "This is Deploy stage"
-}
+}*/
 
 }
 
