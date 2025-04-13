@@ -4,7 +4,7 @@ pipeline
         label 'DevServer'
     }
     parameters {
-  choice choices: ['DevServer','Prod'], name: 'Select_environment'
+  choice choices: ['DevServer','ProdServer'], name: 'Select_environment'
     }
 
 environment { 
@@ -58,8 +58,8 @@ parallel {
 
 stage ('Deploy_Dev')
 	{
-	when {expression {params.select_environment=='DevServer'}
-	beforeAgent=true}
+	when { expression {params.select_environment == 'DevServer'}
+	beforeAgent true}
 	agent { label 'DevServer'}
 	steps {
 		dir("/var/wwww/html")
