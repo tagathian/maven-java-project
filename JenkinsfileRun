@@ -32,8 +32,7 @@ stage ('Test')
 {
   parallel {
    
-    stage('test A')
-        {
+    stage('test A'){
             steps {
             echo " This is test A"
                 }
@@ -43,16 +42,15 @@ stage ('Test')
         steps {
         echo " This is test B" 
         }
-                }
+    }
+}
+}
      post {
         success {
                     archiveArtifacts artifacts: '**/*.war'
             }
         }
 
-}
-
-}
 }
 
 
