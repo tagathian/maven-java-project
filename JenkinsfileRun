@@ -4,7 +4,7 @@ pipeline
         label 'DevServer'
     }
     parameters {
-  choice choices: ['Staging','Prod'], name: 'Select_environment'
+  choice choices: ['DevServer','Prod'], name: 'Select_environment'
     }
 
 environment { 
