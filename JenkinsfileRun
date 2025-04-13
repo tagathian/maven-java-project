@@ -25,24 +25,31 @@ stages {
                     }
            
                 }
-            }
-
+            
 stage ('test')
-{
+	{
 parallel {
 stage('test A'){
         echo " This is test A"
             }
+			
+		
 stage('test B'){
         echo " This is test B"
             }
-        }
+			
+        } // parallel
+		
  post {
         success {
                 archiveArtifacts artifacts: '**/*.war'
                 }
-        }
-    }
+        } //post
+		
+    } // test
+	
+		} // stages
+}
 
 
 
