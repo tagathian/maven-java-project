@@ -4,7 +4,7 @@ pipeline
         label 'DevServer'
     }
     parameters {
-        string defaultValue: 'Agathian', Name: 'LASTNAME'
+        string defaultValue: 'Agathian', NAME: 'LASTNAME'
     }
 environment{
     name = 'Agathian'
