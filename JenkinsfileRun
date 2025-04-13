@@ -29,11 +29,11 @@ stages {
 stage ('test')
 	{
 parallel {
-	stage('test A'){
+	steps('test A'){
         echo " This is test A"
             }
 			
-	stage('test B'){
+	steps('test B'){
         echo " This is test B"
             }
 			
