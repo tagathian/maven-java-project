@@ -29,13 +29,17 @@ stages {
 stage ('test')
 	{
 parallel {
-	steps('test A'){
-        echo " This is test A"
-            }
+	stage('test A'){
+			steps{
+			echo " This is test A"
+			}
+        }
 			
-	steps('test B'){
-        echo " This is test B"
-            }
+	stage('test B'){
+			steps{
+			echo " This is test B"
+			}
+        }
 			
         }  
 		
