@@ -27,18 +27,14 @@ tools {
  
     }
 
-
 stage ('Test')
-{
-  parallel {
-   
-    stage('test A'){
+parallel {
+stage('test A'){
             steps {
             echo " This is test A"
                 }
         }
-
-    stage('test B'){
+stage('test B'){
         steps {
         echo " This is test B" 
         }
@@ -52,7 +48,7 @@ stage ('Test')
         }
 
 }
-}
+
 
 /*
 stage ('Deploy')
