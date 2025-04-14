@@ -56,9 +56,9 @@ parallel {
         }  
 }  
 
-stage('deploy_dev')
+stage('Deploy_Dev')
     {
-        when { expression {params.select_environment == 'DevServer'}
+        when { expression {params.select_environment = = 'DevServer'}
         beforeAgent true}
         agent { label 'DevServer' }
         steps
