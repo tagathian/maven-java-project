@@ -2,6 +2,10 @@ pipeline {
 agent  {
 label 'ProdServer'
 }
+tools {
+    maven 'myMaven'
+    }
+
 
   stages{
     stage ('Build'){
