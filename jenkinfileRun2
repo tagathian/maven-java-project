@@ -1,71 +1,101 @@
-pipeline {
-agent  {
-label 'DevServer'
-}
+pipeline
+{
+    agent {
+        label 'DevServer'
+    }
+    parameters {
+  choice choices: ['DevServer','ProdServer'], name: 'Select_environment'
+    }
 
-parameters {
-choice choices:['Dev','Prod'], name: 'select_environment'
-}
-
-environment {
-NAME= "Agathian"
+environment { 
+    NAME = "Agathian"
 }
 
 tools {
     maven 'myMaven'
     }
 
-
-  stages{
-    stage ('Build'){
-    steps {
-      sh 'mvn clean package -DskipTests=true'
-        }
-}
-	stage('test')
-			{
-			parallel 	{
-					stage ('test A'){
-						agent {label 'DevServer'}
-					       steps {
-						echo " This is test A"
-						sh "mvn test"
-						}
-					}
-
-						stage ('test B'){
-						agent {label 'DevServer'}
-						steps {
-						echo " This is test B"
-						sh "mvn test"
-						}
-					}
-					  }			
-			}	
-		post{
-		success{
-	dir("webapp/target/")
-			{ stash name: "maven-build", includes:"*.war"
-				}
+stages {
+        stage('Build')
+                {
+                steps{
+                    echo " This is build stage"
+                    sh 'mvn clean package -DskipTests=true'
+                  }
+           
+                }
+            
+stage ('test')
+	{
+parallel {
+	stage('test A'){
+			agent{ label 'DevServer'}
+			steps{
+			echo " This is test A"
+			sh "mvn test"
 			}
+        }
+			
+	stage('test B'){
+			steps{
+			agent { label 'DevServer' }
+			echo " This is test B"
+			sh "mvn test"
+			}
+        }
+			
+        }  
+		
+ post {
+        success {
+        		dir("webapp/target/")
+		{
+		stash name: "maven-build", includes: "*.war"
 		}
-   stage('Deploy_Dev')
-	{ 
-	when { expression {params.select_environment == 'Dev'}
-	beforeAgent true}
-	agent {label 'DevServer'}
-	steps {
-	dir("/var/www/html")
-		{unstash "maven-build"}
-	}
-	sh """
-	cd /var/www/html
-	jar -XVF webapp.war
-	"""
-	}
+                }
+        }  
+}  
 
+stage('Deploy_Dev')
+    {
+        when { expression {params.select_environment == 'DevServer'}
+        beforeAgent true}
+        agent { label 'DevServer' }
+        steps
+        {
+            dir("/var/www/html")
+            {
+                unstash "maven-build"
+            }
+            sh """
+            cd /var/www/html/
+            jar -xvf webapp.war
+            """
+        }
+    }
+		
+		stage('Deploy_Prod')
+    {
+        when { expression {params.select_environment == 'ProdServer'}
+        beforeAgent true}
+        agent { label 'ProdServer' }
+        steps
+        {
+            dir("/var/www/html")
+            {
+                unstash "maven-build"
+            }
+            sh """
+            cd /var/www/html/
+            jar -xvf webapp.war
+            """
+        }
+    }
+  }  
 
 }
-}
 
-  
+
+
+
+ 
