@@ -6,7 +6,7 @@ label 'DevServer'
   stages{
     stage ('Build'){
     steps {
-    echo "this is build stage"
+     
     sh 'mvn clean package'
     }
 
