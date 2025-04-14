@@ -19,8 +19,7 @@ tools {
   stages{
     stage ('Build'){
     steps {
-     
-    sh 'mvn clean package'
+      sh 'mvn clean package'
     echo "Hello $NAME ${params.LASTNAME}"
     }
 
@@ -34,15 +33,17 @@ tools {
 			{
 			parallel {
 					stage ('test A'){
+						steps {
 						echo " This is test A"
 						}
 						
 					stage ('test B'){
+						steps
 						echo " This is test B"
 						}
 						
-			}
-  	}
+				}
+  			}
   }
   
   }
