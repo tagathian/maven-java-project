@@ -12,7 +12,7 @@ label 'DevServer'
 
 post{
 success{
-archiveArtifacts artfacts: '**/target/*.war'
+archiveArtifacts artifacts: '**/target/*.war'
 }
 }
    }
