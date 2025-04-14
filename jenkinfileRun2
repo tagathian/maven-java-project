@@ -31,20 +31,20 @@ tools {
    }
 	stage('test')
 			{
-			parallel {
+			parallel 	{
 					stage ('test A'){
-						steps {
+					       steps {
 						echo " This is test A"
 						}
-						
-					stage ('test B'){
-						steps
+						}
+
+						stage ('test B'){
+						steps {
 						echo " This is test B"
 						}
-						
-				}
-  			}
-  }
+						}
+					  }			
+			}			
   
   }
-
+}
