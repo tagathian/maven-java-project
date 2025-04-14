@@ -62,13 +62,13 @@ stage ('Deploy_Dev')
 	beforeAgent true}
 	agent { label 'DevServer'}
 	steps {
-		dir("/var/wwww/html")
+		dir("/usr/share/apache-maven")
 			{
 			unstash "maven-build"
 			}
 
 		sh """
-		cd /var/www/html
+		cd /usr/share/apache-maven
 		jar -X webapp.war
 		"""
 		}
