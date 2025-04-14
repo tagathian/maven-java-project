@@ -19,11 +19,7 @@ stages {
         stage('Build')
                 {
                 steps{
-			script{
-			file = load "script.groovyRun"
-			file.hello()
-			}
-                    echo " This is build stage"
+			echo " This is build stage"
                     sh 'mvn clean package -DskipTests=true'
                   }
            
