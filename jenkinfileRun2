@@ -4,7 +4,7 @@ pipeline
         label 'DevServer'
     }
     parameters {
-  choice choices: ['DevServer','ProdServer'], name: 'Select_environment'
+  choice choices: ['Dev','Prod'], name: 'Select_environment'
     }
 
 environment { 
@@ -29,7 +29,7 @@ stage ('test')
 	{
 parallel {
 	stage('test A'){
-			agent{ label 'DevServer'}
+			agent{ label 'Dev'}
 			steps{
 			echo " This is test A"
 			sh "mvn test"
@@ -38,7 +38,7 @@ parallel {
 			
 	stage('test B'){
 			steps{
-			agent { label 'DevServer' }
+			agent { label 'Dev' }
 			echo " This is test B"
 			sh "mvn test"
 			}
@@ -58,7 +58,7 @@ parallel {
 
 stage('Deploy_Dev')
     {
-        when { expression {params.select_environment == 'DevServer'}
+        when { expression {params.select_environment == 'Dev'}
         beforeAgent true}
         agent { label 'DevServer' }
         steps
@@ -76,7 +76,7 @@ stage('Deploy_Dev')
 		
 		stage('Deploy_Prod')
     {
-        when { expression {params.select_environment == 'ProdServer'}
+        when { expression {params.select_environment == 'Prod'}
         beforeAgent true}
         agent { label 'ProdServer' }
         steps
