@@ -59,7 +59,7 @@ tools {
 		{unstash "maven-build"}
 	}	
 }
+}
 
 
   }
-}
