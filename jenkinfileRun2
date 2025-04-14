@@ -24,13 +24,13 @@ tools {
     echo "Hello $NAME ${params.LASTNAME}"
     }
 
-post{
-success{
-archiveArtifacts artifacts: '**/target/*.war'
-}
-}
+	post{
+	success{
+	archiveArtifacts artifacts: '**/target/*.war'
+			}
+		}
    }
-stage('test')
+	stage('test')
 			{
 			parallel {
 					stage ('test A'){
@@ -43,6 +43,7 @@ stage('test')
 						
 			}
   	}
+  }
   
   }
-}
+
