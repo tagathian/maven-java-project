@@ -19,6 +19,10 @@ stages {
         stage('Build')
                 {
                 steps{
+			script{
+			file = load "script.groovyRun"
+			file.hello()
+			}
                     echo " This is build stage"
                     sh 'mvn clean package -DskipTests=true'
                   }
@@ -74,13 +78,16 @@ stage('Deploy_Dev')
         }
     }
 		
-		stage('Deploy_Prod')
+stage('Deploy_Prod')
     {
         when { expression {params.select_environment == 'ProdServer'}
         beforeAgent true}
         agent { label 'ProdServer' }
         steps
-        {
+        { 
+	    timeout(time:5, unit:'DAYS'){
+		input message: 'Deployment approved?'
+	    }
             dir("/var/www/html")
             {
                 unstash "maven-build"
